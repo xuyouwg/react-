@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/react.development.js"></script>
+		<script src="js/react-dom.development.js"></script>
+		<script src="js/babel.min.js"></script>
+		<script src="js/jquery.min.js"></script>
+		<link rel="stylesheet" href="./css/style.css" />
+	</head>
+	<body>
+		
+		<div id="app"></div>
+		<script type="text/babel">
+			var app = document.getElementById('app');
+			class Hel extends React.Component{
+				constructor(props){
+					super(props)
+					this.state={
+						content:[],
+						className:props.className
+					}
+				}
+				componentWillMount(){
+					this.res = $.get(this.props.source,function(res){
+						console.log(res.showapi_res_body.contentlist)
+						this.setState({
+							content:res.showapi_res_body.contentlist	
+						})
+					}.bind(this))
+				}
+				
+				render(){
+					return <ol>
+						{this.state.content.map((item)=>{
+							return <li>{item.title}<div className={this.state.className}>{item.text}</div></li>
+						})}
+					</ol>
+				}
+			}
+			Hel.defaultProps={
+				source:'http://route.showapi.com/341-1?showapi_appid=77363&showapi_sign=abc65cd43c3e4d5c8a11441c3831bbdc',
+				className:'dis'
+			}
+			ReactDOM.render(<Hel/>,app)
+		</script>
+	</body>
+</html>

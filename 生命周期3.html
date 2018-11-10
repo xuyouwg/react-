@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/react.development.js"></script>
+		<script src="js/react-dom.development.js"></script>
+		<script src="js/babel.min.js"></script>
+	</head>
+	<body>
+		
+		<div id="app"></div>
+		<script type="text/babel">
+			var app = document.getElementById('app');
+			class Hel extends React.Component{
+				constructor(){
+					super()
+					this.state={
+						name:'现在时间：',
+						opacity:1
+					}
+				}
+				//挂载成功
+				componentDidMount(){
+					//es6
+/*					setInterval(()=>{
+						var op = this.state.opacity;
+						op-=.05;
+						if(op<0){
+							op=1
+						}
+						this.setState({
+							opacity:op	
+						})
+					},100)*/
+					//es5  改变this指向
+					/*var self = this
+					setInterval(function(){
+						var op = self.state.opacity;
+						op-=.05;
+						if(op<0){
+							op=1
+						}
+						self.setState({
+							opacity:op	
+						})
+					},100)*/
+					//  bind(this)  改变指向
+					setInterval(function(){
+						var op = this.state.opacity;
+						op-=.05;
+						if(op<0){
+							op=1
+						}
+						this.setState({
+							opacity:op	
+						})
+					}.bind(this),100)
+				}
+				render(){
+					return <h1 style={{opacity:this.state.opacity}}>{this.state.name}</h1>
+				}
+			}
+			ReactDOM.render(<Hel/>,app)
+		</script>
+	</body>
+</html>

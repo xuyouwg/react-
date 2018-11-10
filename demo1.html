@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<title></title>
+	<script src="js/react.development.js"></script>
+	<script src="js/react-dom.development.js"></script>
+	<script src="js/babel.min.js"></script>
+</head>
+
+<body>
+	<!--组件传值
+		父组件给子组件传
+		子组件给父组件传
+	-->
+	<div id='app'></div>
+	<script type="text/babel">
+		var app = document.getElementById('app')
+		class Child extends React.Component{
+			constructor(){
+				super()
+				this.state={
+					chi:'子组件的值来了'
+				}
+			}
+			fn(data){
+				this.props.pfn(data)
+			}
+			render(){
+				return <div className={this.props.className}><ol>
+				{this.props.arr.map((item)=>{
+					return <li>{item}</li>
+				})}
+				</ol>
+				<button onClick={this.fn.bind(this,this.state.chi)}>点击子传父值</button>
+				</div>
+			}
+		}
+		Child.defaultProps={
+			className:'red'
+		}
+			class Parent extends React.Component{
+				constructor(){
+					super()
+					this.state={
+						arr:['hello','react','hah'],
+						par:'我是父组件的内容'
+					}
+				}
+				pfn(data){
+					this.setState({
+						par:data
+					})
+				}
+				render(){
+					return <div><Child className={this.props.className} arr={this.state.arr} pfn={this.pfn.bind(this)}/>
+					<p>{this.state.par}</p>
+					</div>
+				}
+			}
+			Parent.defaultProps={
+				className:'blue'
+			}
+			ReactDOM.render(<Parent/>,app)
+		</script>
+</body>
+</html>

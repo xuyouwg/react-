@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/react.development.js"></script>
+		<script src="js/react-dom.development.js"></script>
+		<script src="js/babel.min.js"></script>
+	</head>
+	<body>
+		
+		<div id="app"></div>
+		<script type="text/babel">
+			var app = document.getElementById('app');
+			/*setInterval(()=>{
+				class Hel extends React.Component{
+					render(){
+						return <h1>{new Date().toLocaleTimeString()}</h1>
+					}
+				}
+				ReactDOM.render(<Hel/>,app)
+			},1000)*/
+			class Hel extends React.Component{
+				constructor(){
+					super()
+					this.state={
+						name:'现在时间：',
+						dates:new Date().toLocaleTimeString()
+					}
+				}
+				//挂载成功
+				componentDidMount(){
+					this.run()
+				}
+				run(){
+					setInterval(()=>{
+						this.setState({
+							dates:new Date().toLocaleTimeString()
+						})
+					},1000)
+				}
+				render(){
+					return <h1>{this.state.name}{this.state.dates}</h1>
+				}
+			}
+			ReactDOM.render(<Hel/>,app)
+		</script>
+	</body>
+</html>

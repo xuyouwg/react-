@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/react.development.js"></script>
+		<script src="js/react-dom.development.js"></script>
+		<script src="js/babel.min.js"></script>
+	</head>
+	<body>
+		<div id="app"></div>
+		<script type="text/babel">
+			var app = document.getElementById('app')
+			var arr = ['#f00','#00f',"#0f0",'#ff0',"#0ff"]
+			class Hel extends React.Component{
+				constructor(){
+					super()
+					this.state={
+						name:'hello',
+						color:'red'
+					}
+				}
+				/*render(){
+					return <div><h1>{this.state.name}react{this.props.title}</h1></div>
+				}*/
+				bian(){
+//					console.log(11)
+					var sjs = Math.floor(Math.random()*5)
+					this.setState({
+						color:this.props.col[sjs]
+					})
+					/*颜色随机
+					 * var asd=[1,2,3,4,5,6,7,8,9,0,'a','b','c','d','e','f']
+					var ars = []; 
+					for(var i=0;i<6;i++){
+						var sjs = Math.floor(Math.random()*16)
+						ars.push(asd[sjs])
+					}
+					var sss = '#'+ars.join('')
+					console.log(sss)
+					this.setState({
+						color:sss
+					})*/
+				}
+				render(){
+					return <div><h1 style={{color:this.state.color}}>看我72变</h1>
+							<button onClick={this.bian.bind(this)}>点我开始</button>
+					</div>
+				}
+			}
+			Hel.defaultProps={
+				title:'ujiuye',
+				col:arr
+			}
+			ReactDOM.render(<Hel/>,app)
+		</script>
+	</body>
+</html>

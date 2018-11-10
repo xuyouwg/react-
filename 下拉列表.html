@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script src="js/react.development.js"></script>
+		<script src="js/react-dom.development.js"></script>
+		<script src="js/babel.min.js"></script>
+	</head>
+	<body>
+		
+		<div id="app"></div>
+		<script type="text/babel">
+			var app = document.getElementById('app')
+			class Hel extends React.Component{
+				constructor(){
+					super()
+					this.state={
+						value:'ujiuye'
+					}
+				
+				}
+				change(event){
+					console.log(event.target.value)
+					this.setState({
+						value:event.target.value
+					})
+				}
+				sub(event){
+					alert('你最喜欢的科目：'+event.target.value)
+				}
+				render(){
+					return <div>
+					<form onSubmit={this.sub.bind(this)}>
+						<select onChange={this.change.bind(this)}>
+							<option value='h5'>html</option>
+							<option value='css3'>css</option>
+							<option value='js'>javascript</option>
+						</select>
+						<input type='submit'/>
+					</form>
+					</div>
+				}
+				
+			}
+			ReactDOM.render(<Hel/>,app)
+		</script>
+	</body>
+</html>
